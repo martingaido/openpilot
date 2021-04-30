@@ -11,6 +11,7 @@
 #include "home.h"
 #include "widgets/drive_stats.h"
 #include "widgets/setup.h"
+#include "widgets/map.hpp"
 
 // HomeWindow: the container for the offroad and onroad UIs
 
@@ -27,8 +28,27 @@ HomeWindow::HomeWindow(QWidget* parent) : QWidget(parent) {
   slayout = new QStackedLayout();
   layout->addLayout(slayout);
 
+  // Map
+  QString token = QString::fromStdString(Params().get("MapboxToken"));
+  QMapboxGLSettings settings;
+  settings.setCacheDatabasePath("/tmp/mbgl-cache.db");
+  settings.setCacheDatabaseMaximumSize(20 * 1024 * 1024);
+  settings.setAccessToken(token);
+  QWidget *map_window = new MapWindow(settings);
+
+  // Camera view
   onroad = new OnroadWindow(this);
-  slayout->addWidget(onroad);
+
+  // Put camera and map side by side
+  QHBoxLayout* onRoadLayout = new QHBoxLayout();
+  onRoadLayout->setContentsMargins(0, 0, 0, 0);
+  onRoadLayout->setSpacing(0);
+  onRoadLayout->addWidget(onroad);
+  onRoadLayout->addWidget(map_window);
+
+  QWidget *onRoadWidget = new QWidget;
+  onRoadWidget->setLayout(onRoadLayout);
+  slayout->addWidget(onRoadWidget);
   QObject::connect(this, &HomeWindow::update, onroad, &OnroadWindow::update);
 
   home = new OffroadHome();
