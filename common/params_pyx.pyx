@@ -57,6 +57,7 @@ keys = {
   b"LastUpdateTime": [TxType.PERSISTENT],
   b"LiveParameters": [TxType.PERSISTENT],
   b"MapboxToken": [TxType.PERSISTENT],
+  b"NavDestination": [TxType.PERSISTENT],  # TODO: CLEAN_ON_MANAGER_START
   b"OpenpilotEnabledToggle": [TxType.PERSISTENT],
   b"PandaFirmware": [TxType.CLEAR_ON_MANAGER_START, TxType.CLEAR_ON_PANDA_DISCONNECT],
   b"PandaFirmwareHex": [TxType.CLEAR_ON_MANAGER_START, TxType.CLEAR_ON_PANDA_DISCONNECT],
