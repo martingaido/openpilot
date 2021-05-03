@@ -11,7 +11,7 @@
 #include "home.h"
 #include "widgets/drive_stats.h"
 #include "widgets/setup.h"
-#include "widgets/map.hpp"
+#include "widgets/map.h"
 
 // HomeWindow: the container for the offroad and onroad UIs
 
